@@ -1,0 +1,47 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        レシピグラマー一覧
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-multiline">
+      <% @users.each do |user| %>
+        <!-- attachment_image_tagこれはHTMLのimage_tagのようなもので、userどこからとってくるかということなので、@userが一つ一つ取り出されてuserに格納される、なのでuserと書く、どのカラムを使用するかなのでprofile_imageと書くここでもidは付けない、sign_upの時画像は新規登録の時に設定していない、よってデフォルトでは"no-image-png"これを設定する、fallbackこれは何も画像が設定されていなかった時に"no-image-png"を表示するという記述、"no-image-png"これと同じファイルを用意する、app-assets-imagesの中に入れる。 -->
+        <div class="column is-3">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-image">
+                <figure class="image">
+                  <!-- 画像をリンクにしたい場合は、link_toタグでdoとendの間でattachment_image_tagを挟むという形にする。 -->
+                  <!-- link_toの後にpathの名前、画像をタッチしたらユーザーの詳細画面に行きたいので、ここはuser_path、詳細画面に行くとき誰の詳細画面に行きたいか指定しないといけないから、今@userで一つ一つ取り出してuserという変数に入れるからここはuserになる、あとはdoとendで囲んであげる。 -->
+                  <%= link_to user_path(user) do %>
+                    <!-- userの中にユーザー人の情報が入っているからユーザーに対してuser.usernameとしてやるとユーザーネームがとってこれる。こうすることで@userから一人一人ユーザーを取り出して名前を表示するという記述ができる。 -->
+                    <%= attachment_image_tag user, :profile_image, fallback: "no-image.png" %>
+                  <% end %>
+                </figure>
+              </div>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <!-- ユーザーネームをタッチしてもユーザーの詳細画面に行きたいのでlink_toとしてuser.usernameの後にuser_pathと書く、これだけだとどんなユーザの画面に行くのか不明なので(user)と書くようにする。 -->
+                  <div class="title"><%=link_to user.username, user_path(user) %></div>
+                </div>
+              </div>
+              <div class="content">
+                投稿数：あとで実装
+                <!-- 投稿数：はレシピを実装してから書く -->
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
