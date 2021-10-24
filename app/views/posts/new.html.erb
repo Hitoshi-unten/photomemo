@@ -1,0 +1,37 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        新規投稿作成
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
+      <!-- @recipeという変数をコントローラから受け取るとする。 -->
+        <%= form_for @post do |f| %>
+          <div class="field">
+            <%= f.label :title, "投稿名", class: "label" %>
+            <%= f.text_field :title, class: "input" %>
+          </div>
+          
+          <div class="field">
+            <%= f.label :body, "メモ", class: "label" %>
+            <%= f.text_area :body, class: "textarea" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :image, "写真", class: "label" %>
+            <%=f.attachment_field :image, class: "input" %>
+          </div>
+
+          <%= f.submit '投稿', class: "button is-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

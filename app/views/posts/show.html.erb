@@ -1,0 +1,69 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        レシピ詳細
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-7">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <%= attachment_image_tag @post, :image %>
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4"><%= @post.title %></p>
+              </div>
+            </div>
+            <div class="content">
+              <table class="table is-narrow">
+                <tr>
+                  <th>投稿</th>
+                </tr>
+                <tr>
+                  <!-- @postのbodyつまり投稿詳細を表示するが、改行とか反映させたいので、特殊な書き方をする。simple_formatと書くとbodyの内容、改行などが反映されるようになる。 -->
+                  <%= simple_format @post.body %>
+                </tr>
+              </table>
+              <!-- 投稿の詳細画面には編集ボタンがあるとよい、他人の投稿した投稿というのは編集できたら困るので、投稿を投稿した人の編集画面しか編集ボタンが表示されないように実装 -->
+              <!-- もし、@postのこれに紐づいているuserのidと今ログインしている人のidが一致しているのであれば、表示するとする -->
+              <% if @post.user.id == current_user.id %>
+                <%= link_to "編集", edit_post_path(@post), class: "button is-success" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="colum is-4">
+        <article class="panel is-link">
+          <p class="panel-heading">
+            <%= @post.user.username %>
+          </p>
+          <div class="panel-block">
+            <p class="control">
+              <%= @post.user.profile %>
+            </p>
+          </div>
+          <!-- リンクはlink_toで作る、ユーザーの詳細画面に行くのでuser_path、どのユーザーに行くのかというのは@postの紐づいているユーザー、今回はlinkに装飾をつけたいのでdo endで書く -->
+          <%= link_to user_path(@post.user), class: "panel-block" do %>
+            <span class="panel-icon">
+              <i class="fas fa-user" aria-hidden="true"></i>
+            </span>
+            <!-- 投稿に紐づいたユーザーをとることができる -->
+            <!-- この投稿をしたユーザーネームとかその人のユーザー詳細にいくリンクというのを作っていく -->
+            <%= @post.user.username %>さんのページへ
+          <% end %>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

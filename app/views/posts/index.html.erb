@@ -1,0 +1,50 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        レシピ一覧
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-multiline">
+      <!-- 一覧を表示するときにはeach文、今配列で全ての投稿が@postsという変数に入っているからこれをeach文で取り出す -->
+      <!-- まず、画像表示から、@postから一つ一つデータが取り出されて、postという変数に入っている、よってこのpostという変数に入っている画像を表示すればいい -->
+      <!-- 投稿を投稿した人のユーザーネームを表示する、どう表示するかというと、 投稿に結びついているユーザーをとってきたいので、recipe.userとすると、|recipe|というものに紐づいたユーザーをとってくることができる-->
+      <!-- post.updated_atこうすることによって更新日時を取ることができる、このままだと日本時間ではなくなってしまう、.strftime("%Y-%m-%d %H:%M")これだけだと日本時間にならない、もう一つやることがある、config-apprication.rbにconfig.time_zone = 'Tokyo'を追加する -->
+      <!-- 先ほど、recipeを投稿した人のユーザーネームしか表示していなかったが、レシピを投稿した人のプロフィール画像もあったほうがいいので実装していく、 -->
+      <% @posts.each do |post| %>
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <%= link_to post_path(post) do %>
+                  <%= attachment_image_tag post, :image %>
+                <% end %>
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <%= attachment_image_tag post.user, :profile_image, fallback: "no-image.png" %>
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <div class="title"><%= link_to post.user.username, user_path(post.user) %></div>
+                </div>
+              </div>
+
+              <div class="content">
+                <%= post.updated_at.strftime("%Y-%m-%d %H:%M") %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
