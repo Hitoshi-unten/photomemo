@@ -2,7 +2,7 @@
   <div class="hero-body">
     <div class="container">
       <h1 class="title">
-        レシピ一覧
+        投稿一覧
       </h1>
     </div>
   </div>
@@ -21,6 +21,7 @@
           <div class="card">
             <div class="card-image">
               <figure class="image is-4by3">
+                <!-- 投稿の画像をクリックしたら投稿の詳細画面に、ユーザーのプロファイルイメージ、ユーザーネームをクリックしたらユーザーの詳細画面に行けるようにリンクを設定する -->
                 <%= link_to post_path(post) do %>
                   <%= attachment_image_tag post, :image %>
                 <% end %>
@@ -30,16 +31,18 @@
               <div class="media">
                 <div class="media-left">
                   <figure class="image is-48x48">
-                    <%= attachment_image_tag post.user, :profile_image, fallback: "no-image.png" %>
+                    <%= link_to user_path(post.user_id) do %>
+                      <%= attachment_image_tag post.user, :profile_image, fallback: "no-image.png" %>
+                    <% end %>
                   </figure>
                 </div>
                 <div class="media-content">
-                  <div class="title"><%= link_to post.user.username, user_path(post.user) %></div>
+                  <div class="title"><%= link_to post.user.username, user_path(post.user.id) %></div>
                 </div>
               </div>
 
               <div class="content">
-                <%= post.updated_at.strftime("%Y-%m-%d %H:%M") %>
+                <time><%= post.updated_at.strftime("%Y-%m-%d %H:%M") %></time>更新
               </div>
             </div>
           </div>

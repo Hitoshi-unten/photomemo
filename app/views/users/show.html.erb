@@ -53,8 +53,60 @@
   </div>
 </section>
 
-<%= @user.username %>
+<section class="section">
+  <div class="container">
+    <div class="columns is-multiline">
+      <!-- この人が投稿した投稿をここに表示していく。 -->
+      <!-- 結局一覧画面なのでeach文を使う。 -->
+      <!-- @userに紐づいているposts、@user.postsこれでユーザーに紐づく投稿が全てとってくることができる。 -->
+      <!-- これでユーザーの投稿を一つずつとってきて表示する。全く一覧画面と同じになる。 -->
+      <!-- まず、投稿の一覧画面を表示する。attachment_image_tag post, :image -->
+      <!-- これで一人のユーザーが投稿した投稿を全てとってきてその画像を表示する。 -->
+      <!-- まずは、詳細画面に遷移するもの、今回はどの投稿の詳細画面に遷移するのか設定する必要があるpost_path(post)この変数は|post|と一致している。 -->
+      <!-- 次にlink_toの編集画面、edit_post_path、それから削除ボタンを設定する、 -->
+      <% @user.posts.each do |post| %>
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <%= attachment_image_tag post, :image %>
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <%= link_to post_path(post), class: "panel-block" do %>
+                    <span class="panel-icon">
+                      <i class="fas fa-book" aria-hidden="true"></i>
+                    </span>
+                    このレシピを見る
+                  <% end %>
+                  <!-- 投稿の編集、削除というものはこの投稿をした人にしかできてほしくない、よってこのリンクはif文で整理してあげる必要がある。マイページで表示されている人と今閲覧している人が同一人物だったら編集削除リンクを設置してもし違う人だったらこの編集削除リンクは表示しない -->
+                  <% if @user.id == current_user.id %>
+                    <%= link_to edit_post_path(post), class: "panel-block" do %>
+                      <span class="panel-icon">
+                        <i class="fas fa-edit"></i>
+                      </span>
+                      このレシピを編集する
+                    <% end %>
+                    <%= link_to post_path(post), method: :delete, data: {confirm: "削除しますか？"}, class: "panel-block" do %>
+                      <span class="panel-icon">
+                        <i class="fas fa-trash"></i>
+                      </span>
+                      このレシピを削除する
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="content">
+                <time><%= post.updated_at.strftime("%Y-%m-%d %H:%M") %></time>更新
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
 
-<%= @user.email %>
-
-<%= @user.profile %>
+レシピの情報は後ほど実装
