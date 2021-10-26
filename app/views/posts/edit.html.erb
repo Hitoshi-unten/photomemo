@@ -2,11 +2,22 @@
   <div class="hero-body">
     <div class="container">
       <h1 class="title">
-        レシピ編集
+        投稿編集
       </h1>
     </div>
   </div>
 </section>
+
+<% if @post.errors.any? %>
+  <div class="notification is-danger">
+    <h2><%= pluralize(@post.errors.count, "error") %> prohibited this object from being saved: not successfully</h2>
+    <ul>
+      <% @post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <section class="section">
   <div class="container">
@@ -19,7 +30,7 @@
           </div>
 
           <div class="field">
-            <%= f.label :body, "詳細", class: "label" %>
+            <%= f.label :body, "メモ", class: "label" %>
             <%= f.text_area :body, class: "textarea" %>
           </div>
 

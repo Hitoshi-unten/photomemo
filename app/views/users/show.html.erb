@@ -79,7 +79,7 @@
                     <span class="panel-icon">
                       <i class="fas fa-book" aria-hidden="true"></i>
                     </span>
-                    このレシピを見る
+                    この投稿を見る
                   <% end %>
                   <!-- 投稿の編集、削除というものはこの投稿をした人にしかできてほしくない、よってこのリンクはif文で整理してあげる必要がある。マイページで表示されている人と今閲覧している人が同一人物だったら編集削除リンクを設置してもし違う人だったらこの編集削除リンクは表示しない -->
                   <% if @user.id == current_user.id %>
@@ -87,13 +87,13 @@
                       <span class="panel-icon">
                         <i class="fas fa-edit"></i>
                       </span>
-                      このレシピを編集する
+                      この投稿を編集する
                     <% end %>
                     <%= link_to post_path(post), method: :delete, data: {confirm: "削除しますか？"}, class: "panel-block" do %>
                       <span class="panel-icon">
                         <i class="fas fa-trash"></i>
                       </span>
-                      このレシピを削除する
+                      この投稿を削除する
                     <% end %>
                   <% end %>
                 </div>

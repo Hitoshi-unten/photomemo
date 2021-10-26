@@ -8,6 +8,21 @@
   </div>
 </section>
 
+<!-- バリデーションにかかって投稿できないのはいいが、何もメッセージが出ないので、なんでバリデーションがかかっているのかわからないので、それをメッセージで伝える -->
+<!-- @postにエラーの内容が含まれているかを判定する@post.errors.any?、@postに何らかエラーの内容はありますか？ -->
+<!-- pluralizeメソッド、これは単語の単数形、複数形を判定してくれるもの、errorが一つだけならワンエラー、errorが二つならツーエラーズにする、このerrorという単語は一つなら単数形、二つ以上なら複数形にする -->
+<!-- 次はエラーの内容を記述していく、まず、@postのエラーメッセージをeach文で回して、messegeという変数に入れて一つ一つ表示していく、 -->
+<% if @post.errors.any? %>
+  <div class="notification is-danger">
+    <h2><%= pluralize(@post.errors.count, "error") %> prohibited this object from being saved: not successfully</h2>
+    <ul>
+      <% @post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <section class="section">
   <div class="container">
     <div class="columns is-centered">

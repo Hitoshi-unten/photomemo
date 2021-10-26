@@ -8,6 +8,8 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[google_oauth2]
   # これを記述しないとアタッチメントが使えない。idを抜いたprofile_imageとする。
   attachment :profile_image
+  # これでユーザー名が空欄で更新することができなくなる。
+  validates :username, presence: true
 
   def self.without_sns_data(auth)
     user = User.where(email: auth.info.email).first
