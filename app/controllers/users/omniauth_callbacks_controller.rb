@@ -14,7 +14,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
     else 
       @sns = info[:sns]
-      redirect_to template: "devise/registrations/new" 
+      redirect_to posts_path 
+      # redirect_to template: "devise/registrations/new" 
     end
   end
 
