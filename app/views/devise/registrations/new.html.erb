@@ -28,7 +28,7 @@
         <div class="field">
           <%= f.label :email, class: "label" %>
           <p class="control has-icons-left">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", :placeholder => "username", class: "input" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", :placeholder => "email", class: "input" %>
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
             </span>
@@ -38,10 +38,10 @@
         <div class="field">
           <%= f.label :password, class: "label" %>
           <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <em>(<%= @minimum_password_length %> 文字以上で入力してください)</em>
           <% end %>
           <p class="control has-icons-left">
-          <%= f.password_field :password, autocomplete: "new-password", :placeholder => "username", class: "input" %>
+          <%= f.password_field :password, autocomplete: "new-password", :placeholder => "password", class: "input" %>
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
             </span>
@@ -51,7 +51,7 @@
         <div class="field">
           <%= f.label :password_confirmation, class: "label" %>
           <p class="control has-icons-left">
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", :placeholder => "username", class: "input" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", :placeholder => "password_confirmation", class: "input" %>
             <span class="icon is-small is-left">
               <i class="fas fa-lock"></i>
             </span>
@@ -59,7 +59,7 @@
         </div>
 
         <div class="actions">
-          <%= f.submit "Sign up" %>
+          <%= f.submit "新規登録", class: "button is-success" %>
         </div>
         <% end %>
 
